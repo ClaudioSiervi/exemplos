@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xmile version="1.0" level="3" xmlns="http://www.systemdynamics.org/XMILE" xmlns:isee="http://iseesystems.com/XMILE">
+    <header>
+        <smile version="1.0" namespace="std, isee">
+            <uses_submodels />
+        </smile>
+        <name>mapa v2</name>
+        <uuid>628c7f97-ea1f-4ba6-9a75-bfca71c94ec4</uuid>
+        <vendor>isee systems, inc.</vendor>
+        <product version="10.0.6" lang="en">STELLA</product>
+    </header>
+    <style>
+        <model font-family="Arial" font-size="9" />
+        <interface font-family="Arial" font-size="9" />
+    </style>
+    <sim_specs method="Euler" time_units="Time">
+        <start>0</start>
+        <stop>12</stop>
+        <dt>0.25</dt>
+    </sim_specs>
+    <model_units>
+        <units>
+            <eqn>m³/s</eqn>
+        </units>
+        <units>
+            <eqn>MW/h</eqn>
+        </units>
+        <units>
+            <eqn>MWmed</eqn>
+        </units>
+        <units>
+            <eqn>mwmed/time</eqn>
+        </units>
+    </model_units>
+    <isee:prefs layer="model" grid_width="20" grid_height="50" divide_by_zero_alert="true" hide_taskbar="true" show_module_prefix="true">
+        <isee:window width="1237" height="709" />
+        <isee:security />
+        <isee:print_setup width="577" height="823" />
+    </isee:prefs>
+    <isee:equation_prefs order_by="module" />
+    <model>
+        <module name="PCH_1">
+            <display x="154" y="128" color="blue" />
+        </module>
+        <module name="PCH_2">
+            <display x="324" y="112" color="blue" />
+            <connect to="Converter_1" from="PCH_1.Qturb_1" />
+        </module>
+        <display page_width="577" page_height="823" isee:converter_size="medium" isee:animate_flows="true" isee:animate_stocks="true" isee:animate_converters="true" interval="DT">
+            <connector x="179" y="130" uid="0" color="#FF007F">
+                <from>PCH_1</from>
+                <to>PCH_2</to>
+            </connector>
+        </display>
+        <interface page_width="788" page_height="528">
+            <simulation_delay>0.1</simulation_delay>
+        </interface>
+    </model>
+    <model name="PCH_1">
+        <stock name="Vres_\nPCH_1">
+            <eqn>0</eqn>
+            <inflow>Vaflu_1</inflow>
+            <outflow>Vturb_1</outflow>
+            <outflow>Vvert_1</outflow>
+            <non_negative />
+            <display x="156" y="95" color="blue" label="Reservatório_PCH_1" />
+        </stock>
+        <stock name="Geração_\nDiária">
+            <eqn>0</eqn>
+            <inflow>Pturb</inflow>
+            <non_negative />
+            <units>MWmed</units>
+            <display x="420" y="292" color="blue" />
+        </stock>
+        <flow name="Vaflu_1">
+            <doc>Vazão Aflênte ao Reservatório</doc>
+            <eqn>Qinc_1 + Qmon_1__LIDO</eqn>
+            <non_negative />
+            <display x="98" y="92" color="blue">
+                <pts>
+                    <pt x="63" y="92" />
+                    <pt x="134" y="92" />
+                </pts>
+            </display>
+        </flow>
+        <flow name="Vturb_1">
+            <non_negative />
+            <display x="153" y="179" color="blue" label_angle="277">
+                <pts>
+                    <pt x="153" y="112" />
+                    <pt x="153" y="246" />
+                </pts>
+            </display>
+        </flow>
+        <flow name="Pturb">
+            <eqn>IF Hliq_1 &lt; Href_1 THEN&#x0A;     Pdesp_1_LIDO * (Hliq_1 / Href_1)^1.5&#x0A;ELSE&#x0A;    Pdesp_1_LIDO / (Efi_TurbGer_1 * NumMaq_1)</eqn>
+            <non_negative />
+            <units>mwmed/time</units>
+            <display x="352" y="286" color="blue">
+                <pts>
+                    <pt x="307" y="286" />
+                    <pt x="398" y="286" />
+                </pts>
+            </display>
+        </flow>
+        <flow name="Vvert_1">
+            <non_negative />
+            <display x="219" y="91" color="blue">
+                <pts>
+                    <pt x="178" y="91" />
+                    <pt x="261" y="91" />
+                </pts>
+            </display>
+        </flow>
+        <aux name="Qinc_1">
+            <doc>Vazão Incremental ao Reservatorio&#x0A;</doc>
+            <eqn>0</eqn>
+            <units>m³/s</units>
+            <display x="76" y="26" color="blue" />
+        </aux>
+        <aux name="Qmon_1_\nLIDO">
+            <doc>Vazão à montante do reservatorio</doc>
+            <eqn>1</eqn>
+            <units>m³/s</units>
+            <display x="33" y="39" color="blue" />
+        </aux>
+        <aux name="Qturb_1" flow_concept="true" access="output" autoexport="true">
+            <eqn>Hliq_1*Pturb</eqn>
+            <display x="254" y="225" color="blue" />
+        </aux>
+        <aux name="Pdesp_1\nLIDO">
+            <doc>Potência despachada pelo ONS.</doc>
+            <eqn>0</eqn>
+            <units>MW/h</units>
+            <display x="463" y="208" color="blue" />
+        </aux>
+        <aux name="NumMaq_1">
+            <eqn>4</eqn>
+            <display x="292" y="354" color="blue" />
+        </aux>
+        <aux name="Efi_TurbGer_1">
+            <doc>Coeficiente de eficiência do conjunto turbina gerador</doc>
+            <eqn>Efi_Turb_1 * Efi_Ger_1</eqn>
+            <display x="430" y="372" color="blue" />
+        </aux>
+        <aux name="Hliq_1">
+            <doc>Altura líquida do reservatorio = Altura bruta - Altura de perdas</doc>
+            <eqn>Hbrut_1 - Hperd_1</eqn>
+            <units>meters</units>
+            <display x="277" y="156" color="blue" />
+        </aux>
+        <aux name="Href_1">
+            <doc>Altura efetiva de funcionamento do reservatório</doc>
+            <eqn>145</eqn>
+            <units>meters</units>
+            <display x="425" y="169" color="blue" />
+        </aux>
+        <aux name="Hperd_1">
+            <doc>Altura de Perdas</doc>
+            <eqn>Href_1 * CoefPerdas_1</eqn>
+            <units>meters</units>
+            <display x="365" y="133" color="blue" />
+        </aux>
+        <aux name="Hbrut_1">
+            <display x="351" y="71" color="blue" />
+        </aux>
+        <aux name="Njus_1">
+            <doc>Nível de Jusante</doc>
+            <display x="411" y="23" color="blue" />
+        </aux>
+        <aux name="Nmon_0">
+            <display x="473" y="15" color="blue" />
+        </aux>
+        <aux name="CoefPerdas_1">
+            <doc>Coeficiênte de perdas devido o atrito da tubulação </doc>
+            <eqn>0.05</eqn>
+            <display x="449" y="103" color="blue" />
+        </aux>
+        <aux name="Efi_Turb_1">
+            <eqn>0.66</eqn>
+            <display x="375" y="403" color="blue" />
+        </aux>
+        <aux name="Efi_Ger_1">
+            <eqn>0.87</eqn>
+            <display x="481" y="406" color="blue" />
+        </aux>
+        <display page_width="577" page_height="823" isee:converter_size="medium" isee:animate_flows="true" isee:animate_stocks="true" isee:animate_converters="true" interval="DT">
+            <connector x="428" y="363" uid="1" color="#FF007F">
+                <from>Efi_TurbGer_1</from>
+                <to>Pturb</to>
+            </connector>
+            <connector x="343" y="75" uid="2" color="#FF007F">
+                <from>Hbrut_1</from>
+                <to>Hliq_1</to>
+            </connector>
+            <connector x="455" y="210" uid="3" color="#FF007F">
+                <from>Pdesp_1_LIDO</from>
+                <to>Pturb</to>
+            </connector>
+            <connector x="402" y="23" uid="4" color="#FF007F">
+                <from>Njus_1</from>
+                <to>Hbrut_1</to>
+            </connector>
+            <connector x="419" y="175" uid="5" color="#FF007F">
+                <from>Href_1</from>
+                <to>Pturb</to>
+            </connector>
+            <connector x="251" y="217" uid="6" color="#FF007F">
+                <from>Qturb_1</from>
+                <to>Vturb_1</to>
+            </connector>
+            <connector x="347" y="279" uid="7" color="#FF007F">
+                <from>Pturb</from>
+                <to>Qturb_1</to>
+            </connector>
+            <connector x="420" y="161" uid="8" color="#FF007F">
+                <from>Href_1</from>
+                <to>Hperd_1</to>
+            </connector>
+            <connector x="268" y="160" uid="9" color="#FF007F">
+                <from>Hliq_1</from>
+                <to>Qturb_1</to>
+            </connector>
+            <connector x="357" y="127" uid="10" color="#FF007F">
+                <from>Hperd_1</from>
+                <to>Hliq_1</to>
+            </connector>
+            <connector x="42" y="41" uid="11" color="#FF007F">
+                <from>Qmon_1__LIDO</from>
+                <to>Vaflu_1</to>
+            </connector>
+            <connector x="478" y="398" uid="12" color="#FF007F">
+                <from>Efi_Ger_1</from>
+                <to>Efi_TurbGer_1</to>
+            </connector>
+            <connector x="379" y="395" uid="13" color="#FF007F">
+                <from>Efi_Turb_1</from>
+                <to>Efi_TurbGer_1</to>
+            </connector>
+            <connector x="293" y="345" uid="14" color="#FF007F">
+                <from>NumMaq_1</from>
+                <to>Pturb</to>
+            </connector>
+            <connector x="285" y="163" uid="15" color="#FF007F">
+                <from>Hliq_1</from>
+                <to>Pturb</to>
+            </connector>
+            <connector x="440" y="100" uid="16" color="#FF007F">
+                <from>CoefPerdas_1</from>
+                <to>Hperd_1</to>
+            </connector>
+            <connector x="466" y="11" uid="17" color="#FF007F">
+                <from>Nmon_0</from>
+                <to>Njus_1</to>
+            </connector>
+            <connector x="82" y="32" uid="18" color="#FF007F">
+                <from>Qinc_1</from>
+                <to>Vaflu_1</to>
+            </connector>
+        </display>
+        <interface page_width="788" page_height="528">
+            <simulation_delay>0.1</simulation_delay>
+        </interface>
+    </model>
+    <model name="PCH_2">
+        <stock name="Vres_\nPCH_1">
+            <eqn>0</eqn>
+            <inflow>Vaflu_1</inflow>
+            <outflow>Vturb_1</outflow>
+            <outflow>Vvert_1</outflow>
+            <non_negative />
+            <display x="156" y="95" color="blue" label="Reservatório_PCH_1" />
+        </stock>
+        <stock name="Geração_\nDiária">
+            <eqn>0</eqn>
+            <inflow>Pturb</inflow>
+            <non_negative />
+            <units>MWmed</units>
+            <display x="420" y="292" color="blue" />
+        </stock>
+        <flow name="Vaflu_1">
+            <doc>Vazão Aflênte ao Reservatório</doc>
+            <eqn>Qinc_1 + Qmon_1_LIDO</eqn>
+            <non_negative />
+            <display x="98" y="92" color="blue">
+                <pts>
+                    <pt x="63" y="92" />
+                    <pt x="134" y="92" />
+                </pts>
+            </display>
+        </flow>
+        <flow name="Vturb_1">
+            <non_negative />
+            <display x="153" y="179" color="blue" label_angle="277">
+                <pts>
+                    <pt x="153" y="112" />
+                    <pt x="153" y="246" />
+                </pts>
+            </display>
+        </flow>
+        <flow name="Pturb">
+            <eqn>IF Hliq_1 &lt; Href_1 THEN&#x0A;     Pdesp__LIDO * (Hliq_1 / Href_1)^1.5&#x0A;ELSE&#x0A;    Pdesp__LIDO / (Efi_TurbGer_1 * NumMaq_1)</eqn>
+            <non_negative />
+            <units>mwmed/time</units>
+            <display x="352" y="286" color="blue">
+                <pts>
+                    <pt x="307" y="286" />
+                    <pt x="398" y="286" />
+                </pts>
+            </display>
+        </flow>
+        <flow name="Vvert_1">
+            <non_negative />
+            <display x="219" y="91" color="blue">
+                <pts>
+                    <pt x="178" y="91" />
+                    <pt x="261" y="91" />
+                </pts>
+            </display>
+        </flow>
+        <aux name="Qinc_1">
+            <doc>Vazão Incremental ao Reservatorio&#x0A;</doc>
+            <eqn>0 +PCH_1.Qturb_1</eqn>
+            <units>m³/s</units>
+            <display x="76" y="26" color="blue" />
+        </aux>
+        <aux name="Qmon_1\nLIDO">
+            <doc>Vazão à montante do reservatorio</doc>
+            <eqn>1</eqn>
+            <units>m³/s</units>
+            <display x="33" y="39" color="blue" />
+        </aux>
+        <aux name="Qturb_1" flow_concept="true">
+            <display x="235" y="232" color="blue" />
+        </aux>
+        <aux name="Pdesp_\nLIDO">
+            <doc>Potência despachada pelo ONS.</doc>
+            <eqn>0</eqn>
+            <units>MW/h</units>
+            <display x="463" y="208" color="blue" />
+        </aux>
+        <aux name="NumMaq_1">
+            <eqn>4</eqn>
+            <display x="292" y="354" color="blue" />
+        </aux>
+        <aux name="Efi_TurbGer_1">
+            <doc>Coeficiente de eficiência do conjunto turbina gerador</doc>
+            <eqn>Efi_Turb_1 * Efi_Ger_1</eqn>
+            <display x="389" y="364" color="blue" />
+        </aux>
+        <aux name="Hliq_1">
+            <doc>Altura líquida do reservatorio = Altura bruta - Altura de perdas</doc>
+            <eqn>Hbrut_1 - Hperd_1</eqn>
+            <units>meters</units>
+            <display x="277" y="156" color="blue" />
+        </aux>
+        <aux name="Href_1">
+            <doc>Altura efetiva de funcionamento do reservatório</doc>
+            <eqn>145</eqn>
+            <units>meters</units>
+            <display x="425" y="169" color="blue" />
+        </aux>
+        <aux name="Hperd_1">
+            <doc>Altura de Perdas</doc>
+            <eqn>Href_1 * CoefPerdas_1</eqn>
+            <units>meters</units>
+            <display x="365" y="133" color="blue" />
+        </aux>
+        <aux name="Hbrut_1">
+            <display x="351" y="71" color="blue" />
+        </aux>
+        <aux name="Njus_1">
+            <doc>Nível de Jusante</doc>
+            <display x="411" y="23" color="blue" />
+        </aux>
+        <aux name="Nmon_0">
+            <display x="473" y="15" color="blue" />
+        </aux>
+        <aux name="CoefPerdas_1">
+            <doc>Coeficiênte de perdas devido o atrito da tubulação </doc>
+            <eqn>0.05</eqn>
+            <display x="449" y="103" color="blue" />
+        </aux>
+        <aux name="Efi_Turb_1">
+            <eqn>0.66</eqn>
+            <display x="334" y="395" color="blue" />
+        </aux>
+        <aux name="Efi_Ger_1">
+            <eqn>0.87</eqn>
+            <display x="440" y="398" color="blue" />
+        </aux>
+        <aux name="Qturb_2" flow_concept="true">
+            <display x="166" color="blue" />
+        </aux>
+        <aux name="Converter_1" access="input">
+            <display x="142" y="11" color="blue" />
+        </aux>
+        <display page_width="577" page_height="823" isee:converter_size="medium" isee:animate_flows="true" isee:animate_stocks="true" isee:animate_converters="true" interval="DT">
+            <connector x="392" y="355" uid="19" color="#FF007F">
+                <from>Efi_TurbGer_1</from>
+                <to>Pturb</to>
+            </connector>
+            <connector x="343" y="75" uid="20" color="#FF007F">
+                <from>Hbrut_1</from>
+                <to>Hliq_1</to>
+            </connector>
+            <connector x="455" y="210" uid="21" color="#FF007F">
+                <from>Pdesp__LIDO</from>
+                <to>Pturb</to>
+            </connector>
+            <connector x="402" y="23" uid="22" color="#FF007F">
+                <from>Njus_1</from>
+                <to>Hbrut_1</to>
+            </connector>
+            <connector x="419" y="175" uid="23" color="#FF007F">
+                <from>Href_1</from>
+                <to>Pturb</to>
+            </connector>
+            <connector x="233" y="224" uid="24" color="#FF007F">
+                <from>Qturb_1</from>
+                <to>Vturb_1</to>
+            </connector>
+            <connector x="347" y="279" uid="25" color="#FF007F">
+                <from>Pturb</from>
+                <to>Qturb_1</to>
+            </connector>
+            <connector x="420" y="161" uid="26" color="#FF007F">
+                <from>Href_1</from>
+                <to>Hperd_1</to>
+            </connector>
+            <connector x="269" y="160" uid="27" color="#FF007F">
+                <from>Hliq_1</from>
+                <to>Qturb_1</to>
+            </connector>
+            <connector x="357" y="127" uid="28" color="#FF007F">
+                <from>Hperd_1</from>
+                <to>Hliq_1</to>
+            </connector>
+            <connector x="42" y="41" uid="29" color="#FF007F">
+                <from>Qmon_1_LIDO</from>
+                <to>Vaflu_1</to>
+            </connector>
+            <connector x="437" y="390" uid="30" color="#FF007F">
+                <from>Efi_Ger_1</from>
+                <to>Efi_TurbGer_1</to>
+            </connector>
+            <connector x="338" y="387" uid="31" color="#FF007F">
+                <from>Efi_Turb_1</from>
+                <to>Efi_TurbGer_1</to>
+            </connector>
+            <connector x="293" y="345" uid="32" color="#FF007F">
+                <from>NumMaq_1</from>
+                <to>Pturb</to>
+            </connector>
+            <connector x="285" y="163" uid="33" color="#FF007F">
+                <from>Hliq_1</from>
+                <to>Pturb</to>
+            </connector>
+            <connector x="440" y="100" uid="34" color="#FF007F">
+                <from>CoefPerdas_1</from>
+                <to>Hperd_1</to>
+            </connector>
+            <connector x="466" y="11" uid="35" color="#FF007F">
+                <from>Nmon_0</from>
+                <to>Njus_1</to>
+            </connector>
+            <connector x="82" y="32" uid="36" color="#FF007F">
+                <from>Qinc_1</from>
+                <to>Vaflu_1</to>
+            </connector>
+            <connector x="133" y="12" uid="37" color="#FF007F">
+                <from>Converter_1</from>
+                <to>Qinc_1</to>
+            </connector>
+        </display>
+        <interface page_width="788" page_height="528">
+            <simulation_delay>0.1</simulation_delay>
+        </interface>
+    </model>
+</xmile>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xmile version="1.0" level="3" xmlns="http://www.systemdynamics.org/XMILE" xmlns:isee="http://iseesystems.com/XMILE">
+    <header>
+        <smile version="1.0" namespace="std, isee">
+            <uses_arrays>1</uses_arrays>
+        </smile>
+        <name>leitura1</name>
+        <uuid>1b680350-c658-4405-97e8-f92483a16e26</uuid>
+        <vendor>isee systems, inc.</vendor>
+        <product version="10.0.6" lang="en">STELLA</product>
+    </header>
+    <style>
+        <model font-family="Arial" font-size="9" />
+        <interface font-family="Arial" font-size="9" />
+    </style>
+    <sim_specs method="Euler" time_units="Time">
+        <start>0</start>
+        <stop>12</stop>
+        <dt>0.25</dt>
+    </sim_specs>
+    <dimensions>
+        <dim name="X" size="10" />
+    </dimensions>
+    <model_units />
+    <data>
+        <import url="E:\Documentos\Mestrado\Engenharia Elétrica\Dissertação\Modelagem\Modelo Dissertação\test1.csv" />
+    </data>
+    <isee:prefs layer="model" grid_width="20" grid_height="50" divide_by_zero_alert="true" hide_taskbar="true" show_module_prefix="true">
+        <isee:window width="1271" height="709" />
+        <isee:security />
+        <isee:print_setup width="577" height="823" />
+    </isee:prefs>
+    <isee:equation_prefs order_by="module" />
+    <model>
+        <array name="Rendimento">
+            <dimensions>
+                <dim name="X" />
+            </dimensions>
+            <aux subscript="1">
+                <eqn>0.855</eqn>
+            </aux>
+            <aux subscript="2">
+                <eqn>0.857</eqn>
+            </aux>
+            <aux subscript="3">
+                <eqn>0.86</eqn>
+            </aux>
+            <aux subscript="4">
+                <eqn>0.867</eqn>
+            </aux>
+            <aux subscript="5">
+                <eqn>0.867</eqn>
+            </aux>
+            <aux subscript="6">
+                <eqn>0.867</eqn>
+            </aux>
+            <aux subscript="7">
+                <eqn>0.867</eqn>
+            </aux>
+            <aux subscript="8">
+                <eqn>0.867</eqn>
+            </aux>
+            <aux subscript="9">
+                <eqn>0.867</eqn>
+            </aux>
+            <aux subscript="10">
+                <eqn>0.867</eqn>
+            </aux>
+            <flow_concept>true</flow_concept>
+            <display x="205" y="240" color="blue" />
+        </array>
+        <flow name="Flow_1">
+            <eqn>Rendimento[time]</eqn>
+            <non_negative />
+            <display x="273" y="171" color="blue">
+                <pts>
+                    <pt x="210" y="171" />
+                    <pt x="337" y="171" />
+                </pts>
+            </display>
+        </flow>
+        <display page_width="577" page_height="823" page_cols="2" isee:converter_size="medium" isee:animate_flows="true" isee:animate_stocks="true" isee:animate_converters="true" interval="DT" scroll_y="72">
+            <connector x="211" y="234" uid="0" color="#FF007F">
+                <from>Rendimento</from>
+                <to>Flow_1</to>
+            </connector>
+            <stacked_container x="124" y="356" height="282" width="492" uid="1">
+                <graph type="time_series" background="#FFFFC9" show_grid="true" plot_numbers="true" isee:use_five_segments="false" date_time="2016-02-21T17:55:18Z" time_precision="2" from="1" to="5">
+                    <title>teste</title>
+                    <plot index="0" pen_width="1" color="blue" precision="1" show_y_axis="true">
+                        <entity name="Flow_1" />
+                    </plot>
+                </graph>
+                <graph type="time_series" background="#FFFFC9" show_grid="true" plot_numbers="true" isee:use_five_segments="false" date_time="2016-02-21T17:55:18Z" time_precision="2" from="0" to="12">
+                    <title>Untitled</title>
+                </graph>
+            </stacked_container>
+            <pad_icon x="338" y="283" width="26" height="22" color="#008F44" label_side="bottom" label="Graph 1" type="graph" icon_of="1" />
+        </display>
+        <interface page_width="788" page_height="528">
+            <simulation_delay>0.684899</simulation_delay>
+        </interface>
+    </model>
+</xmile>

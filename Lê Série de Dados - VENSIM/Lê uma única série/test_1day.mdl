@@ -1,0 +1,129 @@
+{UTF-8}
+minutes per day=
+	hours per day
+	* minutes per hour
+	~	minute/Day
+	~		|
+
+excel minute of day=
+	modulo ( "time (minute)" , minutes per day )
+	/ minutes per day
+	~	minute
+	~		|
+
+Photovoltaik=
+	efficiency PV*PV Area*irradiation data to use
+	~	W*m2
+	~		|
+
+"time (minute)"=
+	Time * minutes per day
+	~	minute
+	~		|
+
+irradiation data to use=
+	irradiation data f ( excel minute of day )
+	~	W
+	~		|
+
+minutes per hour=
+	60
+	~	minute/hour
+	~		|
+
+hours per day=
+	24
+	~	hour/Day
+	~		|
+
+irradiation data f=
+	GET XLS LOOKUPS( 'Vensim_1day.xlsx' , 'Tabelle1' , '4' , 'A5' )
+	~	W
+	~	GET XLS DATA('Vensim_1day.xlsx','Tabelle1','4','A5')
+	|
+
+PV Area=
+	100
+	~	m2
+	~		|
+
+efficiency PV=
+	0.18
+	~	dmnl
+	~		|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 2
+	~	Day
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 0
+	~	Day
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 
+        TIME STEP
+	~	Day [0,?]
+	~	The frequency with which output is stored.
+	|
+
+TIME STEP  = 0.005
+	~	Day [0,?]
+	~	The time step for the simulation.
+	|
+
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 1
+$192-192-192,0,Times New Roman|12||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,100,0
+10,1,Photovoltaik,427,146,40,11,8,3,0,0,0,0,0,0
+10,2,PV Area,430,76,34,11,8,3,0,0,0,0,0,0
+10,3,efficiency PV,290,75,57,11,8,3,0,0,0,0,0,0
+1,4,3,1,1,0,0,0,0,64,0,-1--1--1,,1|(346,112)|
+1,5,2,1,1,0,0,0,0,64,0,-1--1--1,,1|(433,88)|
+10,6,irradiation data f,207,163,51,11,8,131,0,0,0,0,0,0
+10,8,irradiation data to use,326,250,48,19,8,3,0,0,0,0,0,0
+1,9,6,8,0,0,0,0,0,64,0,-1--1--1,,1|(255,198)|
+10,10,Time,548,391,26,11,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128
+10,11,"time (minute)",443,362,41,11,8,3,0,0,0,0,0,0
+1,12,10,11,0,0,0,0,0,64,0,-1--1--1,,1|(508,380)|
+10,13,hours per day,265,503,44,11,8,3,0,0,-1,0,0,0
+10,16,minutes per hour,427,507,52,11,8,3,0,0,-1,0,0,0
+10,18,minutes per day,342,434,50,11,8,3,0,0,0,0,0,0
+1,19,16,18,0,0,0,0,0,64,0,-1--1--1,,1|(389,474)|
+1,20,13,18,0,0,0,0,0,64,0,-1--1--1,,1|(297,473)|
+1,21,18,11,1,0,0,0,0,64,0,-1--1--1,,1|(397,402)|
+10,22,excel minute of day,305,338,48,19,8,3,0,0,0,0,0,0
+1,23,11,22,1,0,0,0,0,64,0,-1--1--1,,1|(365,361)|
+1,25,22,8,0,0,0,0,0,64,0,-1--1--1,,1|(313,300)|
+1,26,8,1,0,0,0,0,0,64,0,-1--1--1,,1|(375,199)|
+1,27,18,22,0,0,0,0,0,64,0,-1--1--1,,1|(327,396)|
+///---\\\
+:L<%^E!@
+1:Current.vdf
+9:Current
+22:$,Dollar,Dollars,$s
+22:Day,Days
+22:Hour,Hours
+22:Month,Months
+22:Person,People,Persons
+22:Unit,Units
+22:Week,Weeks
+22:Year,Years
+23:0
+15:0,0,0,1,0,0
+19:100,0
+27:2,
+34:0,
+4:Time
+5:irradiation data f
+24:0
+25:2
+26:2

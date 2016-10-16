@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xmile version="1.0" level="3" xmlns="http://www.systemdynamics.org/XMILE" xmlns:isee="http://iseesystems.com/XMILE">
+    <header>
+        <smile version="1.0" namespace="std, isee">
+            <uses_arrays>1</uses_arrays>
+        </smile>
+        <name>leitura2</name>
+        <uuid>8ec2a63b-d5fa-46cd-bed8-87ef1cb9d464</uuid>
+        <vendor>isee systems, inc.</vendor>
+        <product version="10.0.6" lang="en">STELLA</product>
+    </header>
+    <style>
+        <model font-family="Arial" font-size="9" />
+        <interface font-family="Arial" font-size="9" />
+    </style>
+    <sim_specs method="Euler" time_units="Time">
+        <start>0</start>
+        <stop>12</stop>
+        <dt>0.25</dt>
+    </sim_specs>
+    <dimensions>
+        <dim name="Y" size="12" />
+    </dimensions>
+    <model_units />
+    <data>
+        <import url="E:\Documentos\Mestrado\Engenharia Elétrica\Dissertação\Modelagem\Modelo Dissertação\test2.csv" />
+    </data>
+    <isee:prefs layer="model" grid_width="20" grid_height="50" divide_by_zero_alert="true" hide_taskbar="true" show_module_prefix="true">
+        <isee:window width="1271" height="709" />
+        <isee:security />
+        <isee:print_setup width="577" height="823" />
+    </isee:prefs>
+    <isee:equation_prefs order_by="module" />
+    <model>
+        <array name="teste">
+            <dimensions>
+                <dim name="Y" />
+            </dimensions>
+            <aux subscript="1">
+                <eqn>1</eqn>
+            </aux>
+            <aux subscript="2">
+                <eqn>1</eqn>
+            </aux>
+            <aux subscript="3">
+                <eqn>2</eqn>
+            </aux>
+            <aux subscript="4">
+                <eqn>3</eqn>
+            </aux>
+            <aux subscript="5">
+                <eqn>5</eqn>
+            </aux>
+            <aux subscript="6">
+                <eqn>8</eqn>
+            </aux>
+            <aux subscript="7">
+                <eqn>13</eqn>
+            </aux>
+            <aux subscript="8">
+                <eqn>21</eqn>
+            </aux>
+            <aux subscript="9">
+                <eqn>34</eqn>
+            </aux>
+            <aux subscript="10">
+                <eqn>21</eqn>
+            </aux>
+            <aux subscript="11">
+                <eqn>21</eqn>
+            </aux>
+            <aux subscript="12">
+                <eqn>21</eqn>
+            </aux>
+            <flow_concept>true</flow_concept>
+            <display x="150" y="276" color="blue">
+                <format precision="max" />
+            </display>
+        </array>
+        <flow name="Flow_1">
+            <eqn>teste[time]</eqn>
+            <non_negative />
+            <display x="268" y="189" color="blue">
+                <scale min="0" max="34" />
+                <range min="0" max="1" />
+                <pts>
+                    <pt x="208" y="189" />
+                    <pt x="329" y="189" />
+                </pts>
+            </display>
+        </flow>
+        <display page_width="577" page_height="823" page_cols="2" isee:converter_size="medium" isee:animate_flows="true" isee:animate_stocks="true" isee:animate_converters="true" interval="DT">
+            <connector x="157" y="271" uid="0" color="#FF007F">
+                <from>teste</from>
+                <to>Flow_1</to>
+            </connector>
+            <stacked_container x="153" y="357" height="282" width="492" uid="1">
+                <graph type="time_series" background="#FFFFC9" show_grid="true" plot_numbers="true" isee:use_five_segments="false" date_time="2016-02-21T18:29:57Z" time_precision="2" from="1" to="10">
+                    <title>Untitled</title>
+                    <plot index="0" pen_width="1" color="blue" precision="1" show_y_axis="true">
+                        <entity name="Flow_1" />
+                    </plot>
+                </graph>
+            </stacked_container>
+            <pad_icon x="309" y="373" width="26" height="22" color="#008F44" label_side="bottom" label="Graph 1" type="graph" icon_of="1" />
+        </display>
+        <interface page_width="788" page_height="528">
+            <simulation_delay>0.1</simulation_delay>
+        </interface>
+    </model>
+</xmile>

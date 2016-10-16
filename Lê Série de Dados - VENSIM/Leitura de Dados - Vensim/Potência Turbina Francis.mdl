@@ -1,0 +1,120 @@
+{UTF-8}
+aceleração da gravidade=
+	9.8
+	~	m/s
+	~		|
+
+coef de densidade da agua=
+	1000
+	~	
+	~		|
+
+Potência Calculada=
+	(Vazão*Queda Liquida*Rendimento*aceleração da gravidade)/1000
+	~	
+	~		|
+
+Queda Liquida:=
+	GET XLS DATA( NomeArquivo, 'Dados' , 'a', 'd2' )
+	~	dmnl
+	~		|
+
+NomeArquivo 0:IS:
+	'Pontos_Polinomio_Rendimento.xlsx'
+	~	
+	~		|
+
+Vazão:=
+	GET XLS DATA( NomeArquivo, 'Dados' , 'a', 'e2' )
+	~	dmnl
+	~		|
+
+Rendimento:=
+	GET XLS DATA(NomeArquivo, 'Dados' , 'a', 'c2' )
+	~	dmnl
+	~		|
+
+NomeArquivo:IS:
+	'Pontos_Polinomio_Rendimento.xlsx'
+	~	
+	~		|
+
+Potência:=
+	GET XLS DATA( NomeArquivo, 'Dados' , 'a', 'b2' )
+	~	dmnl
+	~		|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 100
+	~	Hour
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 0
+	~	Hour
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 
+        TIME STEP
+	~	Hour [0,?]
+	~	The frequency with which output is stored.
+	|
+
+TIME STEP  = 1
+	~	Hour [0,?]
+	~	The time step for the simulation.
+	|
+
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 1
+$192-192-192,0,Times New Roman|12||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,100,0
+12,1,0,251,57,134,30,8,135,0,58,-1,0,0,0,0-0-0,0-0-0,@Arial Unicode MS|16|B|0-0-128
+Exemplo de Leitura de Dados Direto do Excel
+10,2,Potência,478,417,82,19,8,3,0,16,0,0,0,0,0-0-0,0-0-0,|12|B|0-0-0
+10,3,NomeArquivo,481,278,32,21,8,131,0,0,-1,0,0,0
+1,4,3,2,1,0,0,0,0,64,0,-1--1--1,,1|(484,341)|
+10,5,Rendimento,383,135,82,19,8,3,0,16,0,0,0,0,0-0-0,0-0-0,|12|B|0-0-0
+10,6,NomeArquivo 0,383,173,51,19,8,2,1,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128
+1,7,3,5,1,0,0,0,0,64,0,-1--1--1,,1|(427,213)|
+10,8,Queda Liquida,599,142,82,19,8,3,0,16,0,0,0,0,0-0-0,0-0-0,|12|B|0-0-0
+10,9,Vazão,795,162,82,28,8,3,0,16,0,0,0,0,0-0-0,0-0-0,|12|B|0-0-0
+1,10,3,8,1,0,0,0,0,64,0,-1--1--1,,1|(543,216)|
+1,11,3,9,1,0,0,0,0,64,0,-1--1--1,,1|(624,249)|
+10,12,Potência Calculada,712,410,68,15,3,131,0,0,0,0,0,0
+10,13,aceleração da gravidade,766,537,45,19,8,3,0,0,0,0,0,0
+1,14,13,12,1,0,0,0,0,64,0,-1--1--1,,1|(715,538)|
+10,15,Queda Liquida,1019,458,56,11,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128
+10,16,Vazão,932,503,31,11,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128
+10,17,Rendimento,1078,376,47,11,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128
+1,18,16,12,1,0,0,0,0,64,0,-1--1--1,,1|(812,507)|
+1,19,15,12,1,0,0,0,0,64,0,-1--1--1,,1|(890,397)|
+1,20,17,12,1,0,0,0,0,64,0,-1--1--1,,1|(901,329)|
+///---\\\
+:L<%^E!@
+1:GET XLS DATA.vdf
+9:GET XLS DATA
+22:$,Dollar,Dollars,$s
+22:Hour,Hours
+22:Month,Months
+22:Person,People,Persons
+22:Unit,Units
+22:Week,Weeks
+22:Year,Years
+22:Day,Days
+30:?simpleInputs=simpleInputs.xlsx
+15:0,0,0,0,0,0
+19:100,0
+27:0,
+34:0,
+4:Time
+5:Potência Calculada
+24:0
+25:100
+26:100

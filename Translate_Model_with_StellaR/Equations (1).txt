@@ -1,0 +1,7 @@
+Reservatorio(t) = Reservatorio(t - dt) + (Vazao_a_Montante - Vazao_a_Jusante) * dt
+INIT Reservatorio = 100
+INFLOWS:
+Vazao_a_Montante = Vazao__Afluente*TIME*LN(Reservatorio) -Vazao_a_Jusante
+OUTFLOWS:
+Vazao_a_Jusante = 10*LOG10(Reservatorio)^2
+Vazao__Afluente = 100

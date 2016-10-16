@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xmile version="1.0" level="3" xmlns="http://www.systemdynamics.org/XMILE" xmlns:isee="http://iseesystems.com/XMILE">
+    <header>
+        <smile version="1.0" namespace="std, isee" />
+        <name>Hello_World</name>
+        <uuid>9bb381ae-a489-4cfa-babd-7c29bd2b505d</uuid>
+        <vendor>isee systems, inc.</vendor>
+        <product version="10.0.6" lang="en">STELLA</product>
+    </header>
+    <style>
+        <model font-family="Arial" font-size="9" />
+        <interface font-family="Arial" font-size="9" />
+    </style>
+    <sim_specs method="Euler" time_units="Time">
+        <start>0</start>
+        <stop>12</stop>
+        <dt>0.25</dt>
+    </sim_specs>
+    <model_units>
+        <units>
+            <eqn>cubic meters/time</eqn>
+        </units>
+        <units>
+            <eqn>m^3/time</eqn>
+        </units>
+    </model_units>
+    <isee:prefs layer="model" grid_width="20" grid_height="50" divide_by_zero_alert="true" hide_taskbar="true" show_module_prefix="true">
+        <isee:window width="671" height="709" />
+        <isee:security />
+        <isee:print_setup width="577" height="823" />
+    </isee:prefs>
+    <isee:equation_prefs order_by="module" />
+    <model>
+        <stock name="Reservatorio" access="output">
+            <eqn>100</eqn>
+            <inflow>Vazao_a_Montante</inflow>
+            <outflow>Vazao_a_Jusante</outflow>
+            <non_negative />
+            <units>cubic meters</units>
+            <display x="204" y="159" color="blue" />
+        </stock>
+        <flow name="Vazao_a\nMontante">
+            <eqn>Vazao__Afluente*TIME*LN(Reservatorio) -Vazao_a_Jusante</eqn>
+            <non_negative />
+            <units>m^3/time</units>
+            <display x="119" y="163" color="blue" label="Vazão_à__Montante">
+                <pts>
+                    <pt x="57" y="163" />
+                    <pt x="182" y="163" />
+                </pts>
+            </display>
+        </flow>
+        <flow name="Vazao_a\nJusante">
+            <eqn>10*LOG10(Reservatorio)^2</eqn>
+            <non_negative />
+            <units>m^3/time</units>
+            <display x="301" y="159" color="blue">
+                <pts>
+                    <pt x="226" y="159" />
+                    <pt x="376" y="159" />
+                </pts>
+            </display>
+        </flow>
+        <aux name="Vazao_\nAfluente">
+            <eqn>100</eqn>
+            <units>cubic meters/time</units>
+            <display x="65" y="80" color="blue" />
+        </aux>
+        <display page_width="577" page_height="823" page_cols="2" isee:converter_size="medium" isee:animate_flows="true" isee:animate_stocks="true" isee:animate_converters="true" interval="DT">
+            <connector x="74" y="81" uid="0" color="#FF007F">
+                <from>Vazao__Afluente</from>
+                <to>Vazao_a_Montante</to>
+            </connector>
+            <connector x="205" y="176" uid="1" color="#FF007F">
+                <from>Reservatorio</from>
+                <to>Vazao_a_Jusante</to>
+            </connector>
+            <connector x="192" y="176" uid="2" color="#FF007F">
+                <from>Reservatorio</from>
+                <to>Vazao_a_Montante</to>
+            </connector>
+            <connector x="297" y="151" uid="3" color="#FF007F">
+                <from>Vazao_a_Jusante</from>
+                <to>Vazao_a_Montante</to>
+            </connector>
+            <stacked_container x="52" y="344" height="282" width="492" uid="4">
+                <graph type="time_series" background="#FFFFC9" show_grid="true" plot_numbers="true" isee:use_five_segments="false" date_time="2016-08-16T21:09:15Z" time_precision="2" from="0" to="12">
+                    <title>Reservatório</title>
+                    <plot index="0" pen_width="1" color="blue" precision="1" show_y_axis="true">
+                        <entity name="Reservatorio" />
+                    </plot>
+                </graph>
+            </stacked_container>
+            <pad_icon x="347" y="458" width="26" height="22" color="#008F44" label_side="bottom" label="Graph 1" type="graph" icon_of="4" />
+        </display>
+        <interface page_width="788" page_height="528">
+            <simulation_delay>0.53293</simulation_delay>
+        </interface>
+    </model>
+</xmile>

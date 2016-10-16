@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xmile version="1.0" level="3" xmlns="http://www.systemdynamics.org/XMILE" xmlns:isee="http://iseesystems.com/XMILE">
+    <header>
+        <smile version="1.0" namespace="std, isee" />
+        <name>mapa1</name>
+        <uuid>628c7f97-ea1f-4ba6-9a75-bfca71c94ec4</uuid>
+        <vendor>isee systems, inc.</vendor>
+        <product version="10.0.6" lang="en">STELLA</product>
+    </header>
+    <style>
+        <model font-family="Arial" font-size="9" />
+        <interface font-family="Arial" font-size="9" />
+    </style>
+    <sim_specs method="Euler" time_units="Time">
+        <start>0</start>
+        <stop>12</stop>
+        <dt>0.25</dt>
+    </sim_specs>
+    <model_units>
+        <units>
+            <eqn>m³/s</eqn>
+        </units>
+    </model_units>
+    <isee:prefs layer="model" grid_width="20" grid_height="50" divide_by_zero_alert="true" hide_taskbar="true" show_module_prefix="true">
+        <isee:window width="1271" height="709" />
+        <isee:security />
+        <isee:print_setup width="595" height="842" />
+    </isee:prefs>
+    <isee:equation_prefs order_by="module" />
+    <model>
+        <stock name="Vres_\nPCH_1">
+            <inflow>Vaflu_1</inflow>
+            <outflow>Vturb_1</outflow>
+            <outflow>Vvert_1</outflow>
+            <non_negative />
+            <display x="157" y="95" color="blue" label="Reservatório_PCH_1" />
+        </stock>
+        <stock name="Geração_Diária">
+            <inflow>Pturb</inflow>
+            <non_negative />
+            <display x="421" y="292" color="blue" />
+        </stock>
+        <flow name="Vaflu_1">
+            <doc>Vazão Aflênte ao Reservatório</doc>
+            <eqn>Qinc_1 + Qmon_1__Lido_do_SUISHi</eqn>
+            <non_negative />
+            <display x="99" y="92" color="blue">
+                <pts>
+                    <pt x="64" y="92" />
+                    <pt x="135" y="92" />
+                </pts>
+            </display>
+        </flow>
+        <flow name="Vturb_1">
+            <non_negative />
+            <display x="154" y="179" color="blue" label_angle="277">
+                <pts>
+                    <pt x="154" y="112" />
+                    <pt x="154" y="246" />
+                </pts>
+            </display>
+        </flow>
+        <flow name="Pturb">
+            <non_negative />
+            <display x="353" y="286" color="blue">
+                <pts>
+                    <pt x="308" y="286" />
+                    <pt x="399" y="286" />
+                </pts>
+            </display>
+        </flow>
+        <flow name="Vvert_1">
+            <non_negative />
+            <display x="220" y="91" color="blue">
+                <pts>
+                    <pt x="179" y="91" />
+                    <pt x="262" y="91" />
+                </pts>
+            </display>
+        </flow>
+        <aux name="Qinc_1">
+            <doc>Vazão Incremental ao Reservatorio&#x0A;</doc>
+            <eqn>0</eqn>
+            <units>m³/s</units>
+            <display x="77" y="26" color="blue" />
+        </aux>
+        <aux name="Qmon_1_\nLido_do_SUISHI">
+            <doc>Vazão à montante do reservatorio</doc>
+            <eqn>1</eqn>
+            <units>m³/s</units>
+            <display x="34" y="39" color="blue" />
+        </aux>
+        <aux name="Qturb_1" flow_concept="true">
+            <display x="236" y="232" color="blue" />
+        </aux>
+        <aux name="Pdesp_1">
+            <doc>Potência despachada segundo o operador da usina.</doc>
+            <display x="464" y="208" color="blue" />
+        </aux>
+        <aux name="NumMaq_1">
+            <display x="293" y="354" color="blue" />
+        </aux>
+        <aux name="Eficiencia\n_TurbinaGerador_1">
+            <doc>Coeficiente de eficiência do conjunto turbina gerador</doc>
+            <eqn>0.86</eqn>
+            <display x="390" y="364" color="blue" />
+        </aux>
+        <aux name="Pdesp_ONS_1">
+            <display x="531" y="183" color="blue" />
+        </aux>
+        <aux name="Hliq_1">
+            <display x="278" y="156" color="blue" />
+        </aux>
+        <aux name="Href_1">
+            <display x="470" y="133" color="blue" />
+        </aux>
+        <aux name="Hperd_1">
+            <display x="370" y="129" color="blue" />
+        </aux>
+        <aux name="Hbrut_1">
+            <display x="352" y="71" color="blue" />
+        </aux>
+        <aux name="Njus_1">
+            <doc>Nível de Jusante</doc>
+            <display x="412" y="23" color="blue" />
+        </aux>
+        <aux name="Nmon_0">
+            <display x="474" y="15" color="blue" />
+        </aux>
+        <display page_width="595" page_height="842" isee:converter_size="medium" isee:animate_flows="true" isee:animate_stocks="true" isee:animate_converters="true" interval="DT">
+            <connector x="84" y="32" uid="0" color="#FF007F">
+                <from>Qinc_1</from>
+                <to>Vaflu_1</to>
+            </connector>
+            <connector x="41" y="41" uid="1" color="#FF007F">
+                <from>Qmon_1__Lido_do_SUISHI</from>
+                <to>Vaflu_1</to>
+            </connector>
+            <connector x="455" y="210" uid="2" color="#FF007F">
+                <from>Pdesp_1</from>
+                <to>Pturb</to>
+            </connector>
+            <connector x="234" y="223" uid="3" color="#FF007F">
+                <from>Qturb_1</from>
+                <to>Vturb_1</to>
+            </connector>
+            <connector x="346" y="278" uid="4" color="#FF007F">
+                <from>Pturb</from>
+                <to>Qturb_1</to>
+            </connector>
+            <connector x="294" y="345" uid="5" color="#FF007F">
+                <from>NumMaq_1</from>
+                <to>Pturb</to>
+            </connector>
+            <connector x="393" y="355" uid="6" color="#FF007F">
+                <from>Eficiencia__TurbinaGerador_1</from>
+                <to>Pturb</to>
+            </connector>
+            <connector x="523" y="180" uid="7" color="#FF007F">
+                <from>Pdesp_ONS_1</from>
+                <to>Pdesp_1</to>
+            </connector>
+            <connector x="270" y="160" uid="8" color="#FF007F">
+                <from>Hliq_1</from>
+                <to>Qturb_1</to>
+            </connector>
+            <connector x="344" y="74" uid="9" color="#FF007F">
+                <from>Hbrut_1</from>
+                <to>Hliq_1</to>
+            </connector>
+            <connector x="362" y="126" uid="10" color="#FF007F">
+                <from>Hperd_1</from>
+                <to>Hliq_1</to>
+            </connector>
+            <connector x="462" y="128" uid="11" color="#FF007F">
+                <from>Href_1</from>
+                <to>Hperd_1</to>
+            </connector>
+            <connector x="462" y="139" uid="12" color="#FF007F">
+                <from>Href_1</from>
+                <to>Pturb</to>
+            </connector>
+            <connector x="285" y="162" uid="13" color="#FF007F">
+                <from>Hliq_1</from>
+                <to>Pturb</to>
+            </connector>
+            <connector x="403" y="24" uid="14" color="#FF007F">
+                <from>Njus_1</from>
+                <to>Hbrut_1</to>
+            </connector>
+            <connector x="466" y="11" uid="15" color="#FF007F">
+                <from>Nmon_0</from>
+                <to>Njus_1</to>
+            </connector>
+        </display>
+        <interface page_width="788" page_height="528">
+            <simulation_delay>0.1</simulation_delay>
+        </interface>
+    </model>
+</xmile>
